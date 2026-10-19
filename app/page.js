@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Header from "./components/header";
 import UsersList from "./components/usersList";
 import api from "./services/api";
+import Error from "./components/error";
 
 export default function Home() {
 
@@ -23,14 +24,13 @@ export default function Home() {
     } finally {
       setLoading(false)
     }
-
   }
 
   const handleChange = (event) => {
     setFilter(event.target.value)
   }
 
-  const filteredUsers = useMemo(() => {
+  const searchedUsers = useMemo(() => {
     return users.filter(user => user.name.toLowerCase().includes(filter.toLocaleLowerCase()))
   }, [filter, users])
 
@@ -43,9 +43,9 @@ export default function Home() {
       <Header handleChange={handleChange} />
       {
         error.isError ?
-          <span className="text-red-800 w-full text-center">{error.textError}</span>
+          <Error textError={error.textError} />
           :
-          <UsersList users={filteredUsers} loading={loading} />
+          <UsersList users={searchedUsers} loading={loading} />
       }
     </div>
   );

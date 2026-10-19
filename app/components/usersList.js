@@ -1,3 +1,4 @@
+import Loading from "./loading";
 import UserInfo from "./userInfo";
 
 export default function UsersList({ users, loading }) {
@@ -6,7 +7,7 @@ export default function UsersList({ users, loading }) {
             <h2 className="p-4 text-base font-semibold text-gray-900">
                 {
                     loading ?
-                        'Carregando Usuários...'
+                        <Loading textLoading={'Carregando usuários...'} />
                         :
                         `Usuários (${users.length})`
                 }
@@ -14,7 +15,7 @@ export default function UsersList({ users, loading }) {
 
             <ul>
                 {users.map((user) => (
-                    <UserInfo key={user.id} user={user}/>
+                    <UserInfo key={user.id} user={user} />
                 ))}
             </ul>
         </section>

@@ -5,12 +5,10 @@ import { Suspense } from "react"
 
 export default function UserPage() {
 
-    
-
     return (
         <>
-            <Suspense>
-                <UserDetails/>
+            <Suspense> {/* Adicionei essa tag porque foi sugerido no navegador pelo próprio React Compiler */}
+                <UserDetails/> {/* Componente com informações de um único usuário */}
             </Suspense>
         </>
     )
