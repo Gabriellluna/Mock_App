@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image";
 
-export default function UserInfo({ user }) {
+export default function UserInfo({ user }) {//componente que renderiza na tela informações do objeto user recebido por props
     return (
         <li className="flex items-start justify-between gap-4 border-t border-gray-200 p-4 hover:bg-gray-50">
             <div className="flex items-start gap-3">

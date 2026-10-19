@@ -9,34 +9,34 @@ export default function UserDetails() {
     const params = useParams()
     const router = useRouter()
     const [user, setUser] = useState() //variávei de estado que guarda o usuário qeu vem da api de acordo com o id passado pela url
-    const [error, setError] = useState({ isError: false, textError: "" })
+    const [error, setError] = useState({ isError: false, textError: "" }) //variável de estado que guarda status do erro e o respectvo texto do erro
 
-    const getUser = async () => {
+    const getUser = async () => { //função que busca na api os dados de um usuário específico com base no id
         try {
+            //tenta fazer a requisição e guardar a resposta na variável user, com setUser
             const response = await api.get(`users/${params.id}`)
             setUser(response.data)
         } catch (error) {
-            console.log("ENTROU NO CATCH")
-            console.error("Erro:", error)
-
+            //caso haja algum erro na requisição entra aqui, onde será alterado o valor de erro, com setError. Inserindo true para isError e a mensage do erro no textError.
+            console.log("ENTROU NO CATCH aqui")
             setError({ isError: true, textError: error.toString() })
         }
     }
 
-    useEffect(() => {
+    useEffect(() => { //garante que getUser vai ser executada assim que o componente for montado
         getUser()
     }, [])
 
-    if (!user && !error.isError) {
+    if (!user && !error.isError) { // caso não tenha usuário salvo e isError de error seja falso, mostra carregando...
         return <p className="p-6 text-center text-gray-500">Carregando...</p>
     }
 
 
-    if (error.isError) {
+    if (error.isError) { // caso isError de error seja true, mostra a mensagem de erro guardada em error
         return <Error textError={error.textError} />
     }
 
-    return (
+    return ( //retorno dos dados do usuário selecionado
         <div className="bg-gray-200 h-full min-h-dvh">
             <section className="mx-auto my-6 max-w-3xl rounded-md bg-white shadow" >
                 <div className="flex justify-between p-6 border-b border-gray-200">
