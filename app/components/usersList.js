@@ -1,7 +1,7 @@
 import Loading from "./loading";
 import UserInfo from "./userInfo";
 
-export default function UsersList({ users, loading }) {
+export default function UsersList({ users, loading, deleteUser }) {
     return (
         <section className="mx-auto my-6 max-w-3xl rounded-md bg-white shadow">
             <h2 className="p-4 text-base font-semibold text-gray-900">
@@ -16,7 +16,7 @@ export default function UsersList({ users, loading }) {
 
             <ul>
                 {users.map((user) => ( //listagem dinâmica dos usuários
-                    <UserInfo key={user.id} user={user} /> //cada usuário
+                    <UserInfo onDelete={deleteUser} key={user.id} user={user} /> //cada usuário
                 ))}
             </ul>
         </section>

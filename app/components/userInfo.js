@@ -1,7 +1,18 @@
 import Link from "next/link"
 import Image from "next/image";
+import api from "../services/api";
 
-export default function UserInfo({ user }) {//componente que renderiza na tela informações do objeto user recebido por props
+export default function UserInfo({ user, onDelete }) {//componente que renderiza na tela informações do objeto user recebido por props
+
+    const handleDelete = async () => { //função que deleta um usuário pelo id respectivo
+        try {
+            await api.delete(`/users/${user.id}`)
+            onDelete()
+        } catch (error) {
+            console.error("Deu erro aqui: ", error)
+        }
+    }
+
     return (
         <li className="flex items-start justify-between gap-4 border-t border-gray-200 p-4 hover:bg-gray-50">
             <div className="flex items-start gap-3">
@@ -37,6 +48,7 @@ export default function UserInfo({ user }) {//componente que renderiza na tela i
                 <Link href={`/user/${user.id}`}>
                     <span className="text-gray-800">Ver Detalhes</span>
                 </Link>
+                <span className="text-gray-800 cursor-pointer" onClick={() => handleDelete()}>Remover</span>
             </div>
         </li>
     )

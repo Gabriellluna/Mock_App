@@ -12,6 +12,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true) //variável de estado usada para manipular a mensagem de carregamento na tela
   const [filter, setFilter] = useState("") //variável de estado que armazena o texto inserido no campo de filtro pelo usuário
   const [error, setError] = useState({ isError: false, textError: "" }) //variável de estado que guarda status do erro e o respectvo texto do erro
+  const [reload, setReload] = useState(false)
 
   const getUsers = async () => { //função que busca na api os dados dos usuários cadastrados
     try {
@@ -28,6 +29,11 @@ export default function Home() {
     }
   }
 
+  const handleUserDelete = () => {
+    setLoading(true)
+    setReload(prev => !prev)
+  }
+
   const handleChange = (event) => {//função que armazena no filter os dados vindos em tempo real do input de Header
     setFilter(event.target.value)
   }
@@ -38,17 +44,19 @@ export default function Home() {
 
   useEffect(() => { //garante que getUsers vai ser executada assim que o componente for montado
     getUsers()
-  }, [loading])
+  }, [reload])
 
   return (
-    <div className="bg-gray-200 h-full min-h-dvh">
-      <Header handleChange={handleChange} />
-      {
-        error.isError ? //se houver mensagem de erro mostra o componente de erro, que recebe dinâmicamente o texto armazenado em error
-          <Error textError={error.textError} />
-          : //caso não haja erro, exibe o componente que contém todos os usuários vindos da api
-          <UsersList users={searchedUsers} loading={loading} />
-      }
-    </div>
+    <>
+      <div className="bg-gray-200 h-full min-h-dvh">
+        <Header handleChange={handleChange} />
+        {
+          error.isError ? //se houver mensagem de erro mostra o componente de erro, que recebe dinâmicamente o texto armazenado em error
+            <Error textError={error.textError} />
+            : //caso não haja erro, exibe o componente que contém todos os usuários vindos da api
+            <UsersList users={searchedUsers} loading={loading} deleteUser={handleUserDelete} />
+        }
+      </div>
+    </>
   );
 }
