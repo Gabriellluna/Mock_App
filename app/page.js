@@ -1,10 +1,10 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Header from "./components/header";
 import UsersList from "./components/usersList";
 import api from "./services/api";
-import Error from "./components/error";
+import Error from "./components/error"; 
 
 export default function Home() {
 
@@ -14,7 +14,7 @@ export default function Home() {
   const [error, setError] = useState({ isError: false, textError: "" }) //variável de estado que guarda status do erro e o respectvo texto do erro
   const [reload, setReload] = useState(false)
 
-  const getUsers = async () => { //função que busca na api os dados dos usuários cadastrados
+  const getUsers = useCallback( async () => { //função que busca na api os dados dos usuários cadastrados
     try {
       //tenta fazer a requisição e guardar a resposta na variável users, com setUsers
       const response = await api.get('/users')
@@ -27,7 +27,7 @@ export default function Home() {
       //por fim, insere falso para loading, encerrando o período de mensagem de carregamento dos dados na tela
       setLoading(false)
     }
-  }
+  }, [])
 
   const handleUserDelete = () => {
     setLoading(true)

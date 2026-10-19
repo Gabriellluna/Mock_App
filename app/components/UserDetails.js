@@ -2,8 +2,10 @@
 
 import api from "@/app/services/api"
 import { useParams, useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Error from "./error";
+import UserNavigation from "./userNavigation";
+import Link from "next/link"
 
 export default function UserDetails() {
     const params = useParams()
@@ -11,7 +13,7 @@ export default function UserDetails() {
     const [user, setUser] = useState() //variávei de estado que guarda o usuário qeu vem da api de acordo com o id passado pela url
     const [error, setError] = useState({ isError: false, textError: "" }) //variável de estado que guarda status do erro e o respectvo texto do erro
 
-    const getUser = async () => { //função que busca na api os dados de um usuário específico com base no id
+    const getUser = useCallback(async () => { //função que busca na api os dados de um usuário específico com base no id
         try {
             //tenta fazer a requisição e guardar a resposta na variável user, com setUser
             const response = await api.get(`users/${params.id}`)
@@ -21,7 +23,7 @@ export default function UserDetails() {
             console.log("ENTROU NO CATCH aqui")
             setError({ isError: true, textError: error.toString() })
         }
-    }
+    }, [])
 
     useEffect(() => { //garante que getUser vai ser executada assim que o componente for montado
         getUser()
@@ -51,7 +53,9 @@ export default function UserDetails() {
                             <p className="text-gray-500">@{user.username}</p>
                         </div>
                     </div>
-                    <button className="text-blue-900 cursor-pointer" onClick={() => router.back()}>Voltar</button>
+                    <Link href='/'>
+                        <button className="text-blue-900 cursor-pointer">Voltar</button>
+                    </Link>
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2">
@@ -82,7 +86,8 @@ export default function UserDetails() {
                         <p className="text-gray-900">#{user.id}</p>
                     </div>
                 </div>
-            </section >
+            </section>
+            <UserNavigation userId={user.id} />
         </div>
     )
 }
