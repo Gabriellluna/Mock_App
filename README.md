@@ -47,7 +47,7 @@ A configuração do axios (baseURL, timeout e headers) está em `app/services/ap
 app/
 ├── page.js                # Página principal (lista)
 ├── layout.js              # Layout raiz
-├── user/[id]/page.js      # Página de detalhes
+├── details/[id]/page.js   # Página de detalhes do usuário
 ├── services/api.js        # Instância do axios
 └── components/
     ├── header.js          # Título + campo de busca
