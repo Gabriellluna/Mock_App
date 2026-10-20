@@ -45,7 +45,7 @@ export default function UserInfo({ user, onDelete }) {//componente que renderiza
 
             <div className="flex flex-col items-center justify-around self-stretch">
                 <span className="text-xs text-gray-400">#{user.id}</span>
-                <Link href={`/user/${user.id}`}>
+                <Link href={`/details/${user.id}`}>
                     <span className="text-gray-800">Ver Detalhes</span>
                 </Link>
                 <span className="text-gray-800 cursor-pointer" onClick={() => handleDelete()}>Remover</span>

@@ -1,7 +1,7 @@
 "use client"
 
 import api from "@/app/services/api"
-import { useParams, useRouter } from "next/navigation"
+import { useParams } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 import Error from "./error";
 import UserNavigation from "./userNavigation";
@@ -9,7 +9,6 @@ import Link from "next/link"
 
 export default function UserDetails() {
     const params = useParams()
-    const router = useRouter()
     const [user, setUser] = useState() //variávei de estado que guarda o usuário qeu vem da api de acordo com o id passado pela url
     const [error, setError] = useState({ isError: false, textError: "" }) //variável de estado que guarda status do erro e o respectvo texto do erro
 
