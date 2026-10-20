@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Checkpoint #5 – Next.js, APIs, Hooks e Deploy
 
-## Getting Started
+Aplicação em **Next.js (App Router)** que consome uma API com **axios**, lista usuários, permite buscar por nome e navegar até uma página de detalhes.
 
-First, install and run the development server:
+## 🌐 Deploy
 
-```bash
-npm install
-# or
-yarn install
-# and
-npm run dev
-# or
-yarn run dev
+**https://mock-app-five.vercel.app/**
+
+## 👥 Integrantes
+
+Veja o arquivo [`participantes.md`](./participantes.md).
+
+## 🔌 API utilizada
+
+**MockAPI** (https://mockapi.io), recurso `users`.
+
+| Ação | Endpoint |
+|---|---|
+| Listar usuários | `GET /users` |
+| Detalhe do usuário | `GET /users/{id}` |
+| Remover usuário | `DELETE /users/{id}` |
+
+A configuração do axios (baseURL, timeout e headers) está em `app/services/api.js`.
+
+## ✨ Funcionalidades
+
+- Listagem de usuários com axios (`/`)
+- Página de detalhes de um usuário, buscando os dados na API pelo id da URL
+- Navegação entre usuários (Anterior / Próximo) e botão de voltar
+- Remoção de usuário
+- Busca por nome com filtro em tempo real
+- Tratamento de **loading** e **erro**
+
+## 🧠 Hooks utilizados
+
+| Hook | Onde | Para quê |
+|---|---|---|
+| `useState` | `page.js`, `UserDetails`, `UserNavigation` | Guardar usuários, filtro, loading e erro |
+| `useEffect` | `page.js`, `UserDetails`, `UserNavigation`, `Header` | Carregar dados da API e focar o input de busca |
+| `useMemo` | `page.js` | Calcular a lista filtrada só quando filtro ou usuários mudam |
+| `useCallback` | `page.js`, `UserDetails` | Memorizar as funções de busca na API |
+| `useRef` | `Header` | Acessar o input de busca e dar foco ao carregar |
+
+## 🗂️ Estrutura
+
+```
+app/
+├── page.js                # Página principal (lista)
+├── layout.js              # Layout raiz
+├── user/[id]/page.js      # Página de detalhes
+├── services/api.js        # Instância do axios
+└── components/
+    ├── header.js          # Título + campo de busca
+    ├── usersList.js       # Lista de usuários
+    ├── userInfo.js        # Item da lista
+    ├── UserDetails.js     # Detalhes do usuário
+    ├── userNavigation.js  # Botões Anterior / Próximo
+    ├── loading.js         # Mensagem de carregamento
+    └── error.js           # Mensagem de erro
+participantes.md
+README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Como rodar localmente
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+**Pré-requisitos:** Node.js 20 ou superior e npm.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# 1. Clone o repositório
+git clone https://github.com/Gabriellluna/Mock_App.git
+cd Mock_App
 
-## Learn More
+# 2. Instale as dependências
+npm install
 
-To learn more about Next.js, take a look at the following resources:
+# 3. Rode em modo de desenvolvimento
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Abra [http://localhost:3000](http://localhost:3000) no navegador.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Build de produção
 
-## Deploy on Vercel
+```bash
+npm run build
+npm start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Tecnologias
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js](https://nextjs.org) (App Router)
+- [React](https://react.dev)
+- [axios](https://axios-http.com)
+- [Tailwind CSS](https://tailwindcss.com) (apenas visual)
+- Deploy na [Vercel](https://vercel.com)
+
+## 🔒 Observações
+
+Nenhum segredo ou variável de ambiente é necessário: a API do MockAPI é pública e a URL base fica em `app/services/api.js`.
