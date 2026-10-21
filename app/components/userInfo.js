@@ -7,7 +7,7 @@ export default function UserInfo({ user, onDelete }) {//componente que renderiza
     const handleDelete = async () => { //função que deleta um usuário pelo id respectivo
         try {
             await api.delete(`/users/${user.id}`)
-            onDelete()
+            onDelete() //vai chamar a função no componente pai para recarregar os usuários na tela pós haver a remoção de um
         } catch (error) {
             console.error("Deu erro aqui: ", error)
         }

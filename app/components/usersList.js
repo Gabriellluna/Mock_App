@@ -16,7 +16,7 @@ export default function UsersList({ users, loading, deleteUser }) {
 
             <ul>
                 {users.map((user) => ( //listagem dinâmica dos usuários
-                    <UserInfo onDelete={deleteUser} key={user.id} user={user} /> //cada usuário
+                    <UserInfo onDelete={deleteUser} key={user.id} user={user} /> //cada usuário (ao ser chamada onDelete, ela chama por sua vez deleteUser, no componente pai)
                 ))}
             </ul>
         </section>

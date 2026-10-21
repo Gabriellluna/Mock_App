@@ -29,8 +29,8 @@ export default function Home() {
     }
   }, [])
 
-  const handleUserDelete = () => {
-    setLoading(true)
+  const handleUserDelete = () => {//função que torna o reload true, para fazer com que a requisição a api para trazer dados dos usuários seja feita novamente, sem o usuário deletado pro consequência
+    setLoading(true) //para aparecer o item de carregamento até a função getUser terminar de ser executada e a mensagem sumir da tela
     setReload(prev => !prev)
   }
 
@@ -54,7 +54,7 @@ export default function Home() {
           error.isError ? //se houver mensagem de erro mostra o componente de erro, que recebe dinâmicamente o texto armazenado em error
             <Error textError={error.textError} />
             : //caso não haja erro, exibe o componente que contém todos os usuários vindos da api
-            <UsersList users={searchedUsers} loading={loading} deleteUser={handleUserDelete} />
+            <UsersList users={searchedUsers} loading={loading} deleteUser={handleUserDelete} /> //(ao chamar deleteUser, handleUserDelete é executada)
         }
       </div>
     </>
